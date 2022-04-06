@@ -21,6 +21,7 @@ dotfiles remote add origin https://github.com/tlietz/dotfiles.git
 1. `git clone --separate-git-dir=~/.dotfiles https://github.com/tlietz/dotfiles.git ~`
 2. `alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'` if the standard `.config` file for the host terminal is not already setup in the dotfiles directory. 
 
+The [original article](https://martijnvos.dev/using-a-bare-git-repository-to-store-linux-dotfiles/) where I found these instructions.
 
 ## About 
 
