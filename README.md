@@ -24,6 +24,7 @@ dotfiles remote add origin https://github.com/tlietz/dotfiles.git
 
 ## About 
 
-### Vcode
+### Vscode
 
-The keybindings are meant to be OS-agnostic since the only hotkey they use are CTRL and SHIFT. Many of them use a prefix system similar to tmux. 
+The keybindings are meant to be OS-agnostic since the only hotkey they use are CTRL and SHIFT. 
+Many of them use a prefix system similar to tmux. 
