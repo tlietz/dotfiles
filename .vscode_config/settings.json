@@ -1,0 +1,128 @@
+{
+    "terminal.integrated.macOptionClickForcesSelection": true,
+    "editor.minimap.enabled": false,
+    "[dart]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.rulers": [80],
+        "editor.selectionHighlight": false,
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        "editor.suggestSelection": "first",
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": false
+    },
+    "dart.previewLsp": true,
+    "vim.vimrc.enable": true,
+    "dart.debugExternalLibraries": false,
+    "dart.debugSdkLibraries": false,
+    "dart.openDevTools": "flutter",
+    "omnisharp.useGlobalMono": "always",
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "liveServer.settings.CustomBrowser": "chrome",
+    "files.autoSave": "off",
+    "files.autoSaveDelay": 100,
+    "liveServer.settings.donotShowInfoMsg": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[csharp]": {
+        "editor.defaultFormatter": "ms-dotnettools.csharp"
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "eslint.validate": ["vue", "html", "javascript"],
+    "eslint.alwaysShowStatus": true,
+    "glassit.alpha": 255,
+    "eslint.codeAction.disableRuleComment": {
+        "location": "sameLine"
+    },
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook",
+        "*.xls": "default"
+    },
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "editor.fontLigatures": null,
+    "tabnine.experimentalAutoImports": true,
+    "debug.javascript.autoAttachFilter": "onlyWithFlag",
+    "eslint.rules.customizations": [],
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "terminal.integrated.profiles.windows": {
+        "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe (migrated)": {
+            "path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "args": []
+        }
+    },
+    "editor.lineNumbers": "relative",
+    "editor.renderWhitespace": "all",
+    "editor.bracketPairColorization.enabled": true,
+    "go.lintTool": "golangci-lint",
+    "vetur.experimental.templateInterpolationService": true,
+    "[go]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "golang.go"
+    },
+    "[rust]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "statiolake.vscode-rustfmt"
+    },
+    "[haskell]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "0xcd.stylish-hindent"
+    },
+    "[elixir]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "JakeBecker.elixir-ls"
+    },
+    "[html]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[markdown]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
+    "vetur.ignoreProjectWarning": true,
+    "prettier.jsxSingleQuote": true,
+    "prettier.printWidth": 69,
+    "vetur.validation.interpolation": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "files.associations": {
+        "*.hs": "haskell",
+        "*.exs": "elixir",
+        "*.keymap": "c"
+    },
+    "stylish-hindent.executables.hindent": "/Users/tlietz/.local/bin/hindent",
+    "stylish-hindent.executables.stylish-haskell": "/Users/tlietz/.local/bin/stylish-haskell",
+    "editor.acceptSuggestionOnEnter": "off",
+    "[c]": {
+        "editor.defaultFormatter": "xaver.clang-format"
+    },
+    "go.toolsManagement.autoUpdate": true,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "editor.formatOnSave": true,
+    "vetur.format.defaultFormatter.html": "js-beautify-html",
+    "editor.suggest.showStatusBar": true,
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "prettier.tabWidth": 4,
+    "prettier.trailingComma": "all",
+    "workbench.colorTheme": "Material Theme Palenight High Contrast",
+    "workbench.editor.showTabs": true,
+    "settingsSync.ignoredSettings": [
+        "-C_Cpp.default.compilerPath",
+        "-C_Cpp.default.intelliSenseMode"
+    ],
+    "devicetree.defaultBoard": "nice_nano_v2",
+    "window.restoreFullscreen": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "cmake.configureOnOpen": false,
+    "terminal.integrated.enableMultiLinePasteWarning": false
+}
