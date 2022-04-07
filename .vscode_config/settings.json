@@ -36,7 +36,6 @@
     },
     "eslint.validate": ["vue", "html", "javascript"],
     "eslint.alwaysShowStatus": true,
-    "glassit.alpha": 255,
     "eslint.codeAction.disableRuleComment": {
         "location": "sameLine"
     },
@@ -88,6 +87,10 @@
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "yzhang.markdown-all-in-one"
     },
+    "emmet.includeLanguages": {
+        "phoenix-heex": "html",
+        "vue-html": "html"
+    },
     "vetur.ignoreProjectWarning": true,
     "prettier.jsxSingleQuote": true,
     "prettier.printWidth": 69,
@@ -96,7 +99,8 @@
     "files.associations": {
         "*.hs": "haskell",
         "*.exs": "elixir",
-        "*.keymap": "c"
+        "*.keymap": "c",
+        "*.heex": "phoenix-heex"
     },
     "stylish-hindent.executables.hindent": "/Users/tlietz/.local/bin/hindent",
     "stylish-hindent.executables.stylish-haskell": "/Users/tlietz/.local/bin/stylish-haskell",
