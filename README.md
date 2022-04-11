@@ -23,6 +23,9 @@ dotfiles remote add origin https://github.com/tlietz/dotfiles.git
 
 The [original article](https://martijnvos.dev/using-a-bare-git-repository-to-store-linux-dotfiles/) where I found these instructions.
 
+If those instructions do not work, go through the initial setup instructions, then run:\
+`dotfiles pull origin main`
+
 ## About 
 
 ### Vscode
