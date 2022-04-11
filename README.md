@@ -32,5 +32,4 @@ The files from `vscode_config/` need to be manually copied into the location whe
 
 ### Vscode
 
-The keybindings are meant to be OS-agnostic since the only hotkey they use are CTRL and SHIFT. 
-Many of them use a prefix system similar to tmux. 
+The keybindings use a prefix(CTRL + SPACE) system similar to tmux and are meant to be OS-agnostic since they use only CTRL, TAB, and SHIFT (No CMD, OPTION, WIN, or META).
