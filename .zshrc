@@ -129,6 +129,9 @@ export PATH="/usr/local/share/dotnet/x64:$PATH"
 export PATH="/usr/local/share/dotnet/x64/sdk:$PATH"
 export PATH="Users/tlietz/Library/Caches/.wasm-pack/.wasm-bindgen-cargo-install-0.2.78/bin:$PATH"
 export PATH="Users/tlietz/Library/Caches/.wasm-pack/.wasm-bindgen-cargo-install-0.2.78/bin:$PATH"
+
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
 export LIBRARY_PATH="/opt/homebrew/lib:$LIBRARY_PATH"
 
 export ZEPHYR_TOOLCHAIN_VARIANT=gnuarmemb
