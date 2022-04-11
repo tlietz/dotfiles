@@ -79,6 +79,10 @@
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "JakeBecker.elixir-ls"
     },
+    "[phoenix-heex]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "JakeBecker.elixir-ls"
+    },
     "[html]": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "vscode.html-language-features"
