@@ -203,5 +203,9 @@
         "key": "ctrl+shift+g",
         "command": "-workbench.view.scm",
         "when": "workbench.scm.active"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "search.action.focusSearchList"
     }
 ]
