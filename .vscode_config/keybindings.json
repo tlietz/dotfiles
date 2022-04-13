@@ -134,7 +134,13 @@
     },
     {
         "key": "ctrl+space q",
-        "command": "workbench.action.terminal.kill"
+        "command": "workbench.action.terminal.kill",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+space q",
+        "command": "workbench.action.closeActiveEditor",
+        "when": "editorFocus"
     },
     {
         "key": "ctrl+shift+`",
@@ -206,6 +212,16 @@
     },
     {
         "key": "ctrl+j",
-        "command": "search.action.focusSearchList"
+        "command": "search.action.focusSearchList",
+        "when": "!editorFocus"
+    },
+    {
+        "key": "ctrl+cmd+backspace",
+        "command": "workbench.action.closeWindow",
+        "when": "!editorIsOpen && !multipleEditorGroups"
+    },
+    {
+        "key": "ctrl+cmd+backspace",
+        "command": "workbench.action.closeActiveEditor"
     }
 ]
