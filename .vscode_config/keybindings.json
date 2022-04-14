@@ -140,7 +140,7 @@
     {
         "key": "ctrl+space q",
         "command": "workbench.action.closeActiveEditor",
-        "when": "editorFocus"
+        "when": "!terminalFocus && !filesExplorerFocus"
     },
     {
         "key": "ctrl+shift+`",
@@ -223,5 +223,45 @@
     {
         "key": "ctrl+cmd+backspace",
         "command": "workbench.action.closeActiveEditor"
+    },
+    {
+        "key": "ctrl+,",
+        "command": "workbench.action.openSettings"
+    },
+    {
+        "key": "cmd+,",
+        "command": "-workbench.action.openSettings"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "workbench.action.quickOpen"
+    },
+    {
+        "key": "cmd+p",
+        "command": "-workbench.action.quickOpen"
+    },
+    {
+        "key": "ctrl+shift+p",
+        "command": "workbench.action.showCommands"
+    },
+    {
+        "key": "shift+cmd+p",
+        "command": "-workbench.action.showCommands"
+    },
+    {
+        "key": "ctrl+k ctrl+s",
+        "command": "workbench.action.openGlobalKeybindings"
+    },
+    {
+        "key": "cmd+k cmd+s",
+        "command": "-workbench.action.openGlobalKeybindings"
+    },
+    {
+        "key": "ctrl+k ctrl+w",
+        "command": "workbench.action.closeAllEditors"
+    },
+    {
+        "key": "cmd+k cmd+w",
+        "command": "-workbench.action.closeAllEditors"
     }
 ]
