@@ -133,12 +133,12 @@
         "command": "workbench.action.maximizeEditor"
     },
     {
-        "key": "ctrl+space q",
+        "key": "ctrl+space x",
         "command": "workbench.action.terminal.kill",
         "when": "terminalFocus"
     },
     {
-        "key": "ctrl+space q",
+        "key": "ctrl+space x",
         "command": "workbench.action.closeActiveEditor",
         "when": "!terminalFocus && !filesExplorerFocus"
     },
@@ -240,19 +240,11 @@
         "command": "-workbench.action.showCommands"
     },
     {
-        "key": "ctrl+k ctrl+s",
-        "command": "workbench.action.openGlobalKeybindings"
+        "key": "ctrl+shift+t",
+        "command": "workbench.action.reopenClosedEditor"
     },
     {
-        "key": "cmd+k cmd+s",
-        "command": "-workbench.action.openGlobalKeybindings"
-    },
-    {
-        "key": "ctrl+k ctrl+w",
-        "command": "workbench.action.closeAllEditors"
-    },
-    {
-        "key": "cmd+k cmd+w",
-        "command": "-workbench.action.closeAllEditors"
+        "key": "shift+cmd+t",
+        "command": "-workbench.action.reopenClosedEditor"
     }
 ]
