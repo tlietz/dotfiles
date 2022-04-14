@@ -213,16 +213,7 @@
     {
         "key": "ctrl+j",
         "command": "search.action.focusSearchList",
-        "when": "!editorFocus"
-    },
-    {
-        "key": "ctrl+cmd+backspace",
-        "command": "workbench.action.closeWindow",
-        "when": "!editorIsOpen && !multipleEditorGroups"
-    },
-    {
-        "key": "ctrl+cmd+backspace",
-        "command": "workbench.action.closeActiveEditor"
+        "when": "sideBarFocus && searchViewletVisible"
     },
     {
         "key": "ctrl+,",
