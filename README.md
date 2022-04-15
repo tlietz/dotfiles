@@ -32,4 +32,6 @@ The files from `vscode_config/` need to be manually copied into the location whe
 
 ### Vscode
 
+A hard link is created between vcode's directory, and the one here.
+
 The keybindings use a prefix(CTRL + SPACE) system similar to tmux and are meant to be OS-agnostic since they use only CTRL, TAB, and SHIFT (No CMD, OPTION, WIN, or META).
