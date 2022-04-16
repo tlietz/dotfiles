@@ -8,7 +8,7 @@ mkdir ~/.dotfiles
 
 git init --bare ~/.dotfiles
 
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 dotfiles config status.showUntrackedFiles no
 
@@ -31,5 +31,7 @@ The files from `vscode_config/` need to be manually copied into the location whe
 ## About 
 
 ### Vscode
+
+A hard link is created between vcode's directory, and the one here.
 
 The keybindings use a prefix(CTRL + SPACE) system similar to tmux and are meant to be OS-agnostic since they use only CTRL, TAB, and SHIFT (No CMD, OPTION, WIN, or META).
