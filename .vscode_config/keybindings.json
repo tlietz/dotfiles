@@ -18,7 +18,7 @@
     {
         "key": "ctrl+space ctrl+h",
         "command": "workbench.action.focusActiveEditorGroup",
-        "when": "filesExplorerFocus"
+        "when": "explorerViewletVisible && filesExplorerFocus"
     },
     {
         "key": "ctrl+space h",
@@ -310,5 +310,25 @@
     {
         "key": "ctrl+space ctrl+x",
         "command": "workbench.action.closeEditorsAndGroup"
+    },
+    {
+        "key": "ctrl+space n",
+        "command": "explorer.newFile",
+        "when": "explorerViewletVisible && filesExplorerFocus"
+    },
+    {
+        "key": "ctrl+space backspace",
+        "command": "deleteFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "alt+cmd+backspace",
+        "command": "-deleteFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "ctrl+space d",
+        "command": "workbench.files.action.createFolderFromExplorer",
+        "when": "explorerViewletVisible && filesExplorerFocus"
     }
 ]
