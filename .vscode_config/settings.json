@@ -103,6 +103,7 @@
     "files.associations": {
         "*.hs": "haskell",
         "*.exs": "elixir",
+        "*.ex": "elixir",
         "*.keymap": "c",
         "*.heex": "phoenix-heex"
     },
