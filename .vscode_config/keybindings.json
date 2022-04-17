@@ -306,5 +306,9 @@
         "key": "alt+cmd+w",
         "command": "-toggleSearchWholeWord",
         "when": "searchViewletFocus"
+    },
+    {
+        "key": "ctrl+space ctrl+x",
+        "command": "workbench.action.closeEditorsAndGroup"
     }
 ]
