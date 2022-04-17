@@ -249,16 +249,6 @@
     },
     {
         "key": "ctrl+space r",
-        "command": "toggleFindRegex",
-        "when": "editorFocus"
-    },
-    {
-        "key": "alt+cmd+r",
-        "command": "-toggleFindRegex",
-        "when": "editorFocus"
-    },
-    {
-        "key": "ctrl+space r",
         "command": "toggleSearchRegex",
         "when": "searchViewletFocus"
     },
@@ -269,16 +259,6 @@
     },
     {
         "key": "ctrl+space c",
-        "command": "toggleFindCaseSensitive",
-        "when": "editorFocus"
-    },
-    {
-        "key": "alt+cmd+c",
-        "command": "-toggleFindCaseSensitive",
-        "when": "editorFocus"
-    },
-    {
-        "key": "ctrl+space c",
         "command": "toggleSearchCaseSensitive",
         "when": "searchViewletFocus && !fileMatchOrFolderMatchFocus"
     },
@@ -286,16 +266,6 @@
         "key": "alt+cmd+c",
         "command": "-toggleSearchCaseSensitive",
         "when": "searchViewletFocus && !fileMatchOrFolderMatchFocus"
-    },
-    {
-        "key": "ctrl+space w",
-        "command": "toggleFindWholeWord",
-        "when": "editorFocus"
-    },
-    {
-        "key": "alt+cmd+w",
-        "command": "-toggleFindWholeWord",
-        "when": "editorFocus"
     },
     {
         "key": "ctrl+space w",
