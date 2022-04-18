@@ -16,10 +16,16 @@
     // 	"description": "Log output to console"
     // }
 
-    "Inspect": {
+    "Piped Inspect": {
         "scope": "elixir,html-eex,eex",
         "prefix": "insp",
         "body": ["|> IO.inspect(label: \"$0\")"],
         "description": "Inspect a variable in Elixir and add a label"
+    },
+    "Inspect binding": {
+        "scope": "elixir,html-eex,eex",
+        "prefix": "ibind",
+        "body": ["IO.inspect(binding(), label: \"$0\")"],
+        "description": "Inspect all parameters of a function"
     }
 }
