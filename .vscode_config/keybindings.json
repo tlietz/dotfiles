@@ -300,5 +300,47 @@
         "key": "ctrl+space d",
         "command": "workbench.files.action.createFolderFromExplorer",
         "when": "explorerViewletVisible && filesExplorerFocus"
+    },
+    {
+        "key": "ctrl+cmd+left",
+        "command": "workbench.action.moveEditorToNextGroup"
+    },
+    {
+        "key": "ctrl+cmd+right",
+        "command": "-workbench.action.moveEditorToNextGroup"
+    },
+    {
+        "key": "ctrl+cmd+right",
+        "command": "workbench.action.moveEditorToPreviousGroup"
+    },
+    {
+        "key": "ctrl+cmd+left",
+        "command": "-workbench.action.moveEditorToPreviousGroup"
+    },
+    {
+        "key": "ctrl+shift+k",
+        "command": "workbench.action.moveEditorToAboveGroup"
+    },
+    {
+        "key": "ctrl+shift+j",
+        "command": "workbench.action.moveEditorToBelowGroup"
+    },
+    {
+        "key": "ctrl+cmd+j",
+        "command": "rust-analyzer.joinLines",
+        "when": "editorTextFocus && editorLangId == 'rust'"
+    },
+    {
+        "key": "ctrl+shift+j",
+        "command": "-rust-analyzer.joinLines",
+        "when": "editorTextFocus && editorLangId == 'rust'"
+    },
+    {
+        "key": "ctrl+shift+h",
+        "command": "workbench.action.moveEditorToLeftGroup"
+    },
+    {
+        "key": "ctrl+shift+l",
+        "command": "workbench.action.moveEditorToRightGroup"
     }
 ]
