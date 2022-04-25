@@ -342,5 +342,13 @@
     {
         "key": "ctrl+shift+l",
         "command": "workbench.action.moveEditorToRightGroup"
+    },
+    {
+        "key": "ctrl+space ;",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "cmd+b",
+        "command": "-workbench.action.toggleSidebarVisibility"
     }
 ]
