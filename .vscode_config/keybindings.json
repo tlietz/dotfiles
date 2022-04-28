@@ -302,22 +302,6 @@
         "when": "explorerViewletVisible && filesExplorerFocus"
     },
     {
-        "key": "ctrl+cmd+left",
-        "command": "workbench.action.moveEditorToNextGroup"
-    },
-    {
-        "key": "ctrl+cmd+right",
-        "command": "-workbench.action.moveEditorToNextGroup"
-    },
-    {
-        "key": "ctrl+cmd+right",
-        "command": "workbench.action.moveEditorToPreviousGroup"
-    },
-    {
-        "key": "ctrl+cmd+left",
-        "command": "-workbench.action.moveEditorToPreviousGroup"
-    },
-    {
         "key": "ctrl+shift+k",
         "command": "workbench.action.moveEditorToAboveGroup"
     },
