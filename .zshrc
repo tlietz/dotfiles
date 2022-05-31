@@ -102,13 +102,20 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# git alias'
 alias gc="git commit "
 alias gcm="git commit -m "
 alias gam="git commit -am "
-alias gt="git log --oneline --graph --decorate --all"
-alias gp="git push"
+alias gtree="git log --oneline --graph --decorate --all"
+alias gpush="git push"
+alias gpull="git pull"
 alias gaa="git add -A"
+alias ga="git add"
 alias gco="git checkout"
+alias gco="git checkout"
+
+#other alias
 alias chrome="open -a 'google chrome'"
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
