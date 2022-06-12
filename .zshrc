@@ -113,7 +113,6 @@ alias gpull="git pull"
 alias gaa="git add -A"
 alias ga="git add"
 alias gco="git checkout"
-alias gco="git checkout"
 
 #other alias
 alias chrome="open -a 'google chrome'"
