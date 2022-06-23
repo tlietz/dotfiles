@@ -26,7 +26,8 @@ The [original article](https://martijnvos.dev/using-a-bare-git-repository-to-sto
 If those instructions do not work, go through the initial setup instructions, then run:\
 `dotfiles pull origin main`
 
-The files from `vscode_config/` need to be manually copied into the location where vscode stores them. 
+The files from `vscode_config/` need to be manually copied into the location where vscode stores them. On a windows machine, from home, run `cp .vscode_config/keybindings.json /AppData/Roaming/Code/User/`
+
 
 ## About 
 
