@@ -10,6 +10,8 @@ git init --bare ~/.dotfiles
 
 git branch -M main
 
+git checkout main
+
 alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 dotfiles config status.showUntrackedFiles no
