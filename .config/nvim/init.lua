@@ -47,7 +47,6 @@ require("lazy").setup({
 		-- build = "make install_jsregexp"
 		dependencies = { "rafamadriz/friendly-snippets" },
 	},
-	
 
 	-- Syntax highlighting
 	{
@@ -159,39 +158,6 @@ require('mason-lspconfig').setup({
 })
 
 ----------------------------------------------------------------------------
--- Autocomplete
-----------------------------------------------------------------------------
-
-local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
-
--- this is the function that loads the extra snippets to luasnip
--- from rafamadriz/friendly-snippets
-require('luasnip.loaders.from_vscode').lazy_load()
-require('luasnip.loaders.from_vscode').lazy_load({
-	paths = { vim.fn.stdpath("config") .. "/my-cool-snippets" },
-})
-
-cmp.setup({
-	sources = {
-		{name = 'path'},
-		{name = 'nvim_lsp'},
-		{name = 'luasnip', keyword_length = 2},
-		{name = 'nvim_lua'},
-		{name = 'buffer', keyword_length = 3},
-	},
-	formatting = lsp_zero.cmp_format(),
-	mapping = cmp.mapping.preset.insert({
-		['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-		['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-		["<C-Space>"] = cmp.mapping.complete(),
-		['<C-e>'] = cmp.mapping.abort(),
-		['<C-y>'] = cmp.mapping.confirm({ select = true }),
-		['<Tab>'] = cmp.mapping.confirm({ select = true }),
-	}),
-})
-
-----------------------------------------------------------------------------
 -- Syntax highlighting
 ----------------------------------------------------------------------------
 
@@ -216,6 +182,59 @@ require'nvim-treesitter.configs'.setup {
 		additional_vim_regex_highlighting = false,
 	},
 }
+
+----------------------------------------------------------------------------
+-- Autocomplete
+----------------------------------------------------------------------------
+
+local cmp = require('cmp')
+local cmp_select = {behavior = cmp.SelectBehavior.Select}
+
+-- this is the function that loads the extra snippets to luasnip
+-- from rafamadriz/friendly-snippets
+local ls = require "luasnip"
+require('luasnip.loaders.from_vscode').lazy_load()
+
+local s = ls.snippet
+local t = ls.text_node
+
+ls.add_snippets("elixir", {
+	-- IO.inspect() binding() with easy to search for label
+	s("iib", {
+		t('IO.inspect(binding(), label: "asdf", limit: :infinity)'),
+	}),
+	s("pii", {
+		t('|> IO.inspect(label: "asdf", limit: :infinity)'),
+	}),
+	s("dbg", {
+		t('dbg(limit: :infinity)'),
+	}),
+	s("pdbg", {
+		t('|> dbg(limit: :infinity)'),
+	}),
+})
+
+cmp.setup({
+	sources = {
+		{name = 'path'},
+		{name = 'nvim_lsp'},
+		{name = 'luasnip', keyword_length = 1},
+		{name = 'nvim_lua'},
+		{name = 'buffer', keyword_length = 3},
+	},
+	formatting = lsp_zero.cmp_format(),
+	mapping = cmp.mapping.preset.insert({
+		['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+		['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+		-- <C-i> should be recognized as <Tab>
+		['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
+		['<C-Space>'] = cmp.mapping.complete(),
+		['<C-e>'] = cmp.mapping.abort(),
+		['<C-y>'] = cmp.mapping.confirm({ select = true }),
+		['<CR>'] = cmp.mapping.confirm({ select = true }),
+	}),
+})
+
 
 
 ----------------------------------------------------------------------------
