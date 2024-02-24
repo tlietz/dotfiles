@@ -1,43 +1,118 @@
 ----------------------------------------------------------------------------
--- Standard configs and keymappings
+-- Mappings and general configs
 ----------------------------------------------------------------------------
+
 vim.g.mapleader = " "
 vim.wo.relativenumber = true
 vim.wo.number = true
 
-vim.cmd.colorscheme "catppuccin"
+----------------------------------------------------------------------------
+-- Plugin manager
+----------------------------------------------------------------------------
 
--- require("tokyonight").setup({
---   -- other configs
---   on_colors = function(colors)
---     colors.border = "#565f89"
---   end
--- })
--- vim.cmd[[colorscheme tokyonight-night]]
-
--- `on_attach` callback will be called after a language server
--- instance has been attached to an open buffer with matching filetype
--- here we're setting key mappings for hover documentation, goto definitions, goto references, etc
--- you may set those key mappings based on your own preference
-local on_attach = function(client, bufnr)
-  local opts = { noremap=true, silent=true }
-
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cd', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup({
+	-- LSP Support
+	{'williamboman/mason.nvim'},
+	{'williamboman/mason-lspconfig.nvim'},
+	{'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
+	{'neovim/nvim-lspconfig'},
+
+	-- Autocomplete
+	{'hrsh7th/cmp-nvim-lsp'},
+	{'hrsh7th/cmp-nvim-lua'},
+	{'hrsh7th/nvim-cmp'},
+	{'hrsh7th/cmp-buffer'},
+	{'hrsh7th/cmp-path'},
+	{'hrsh7th/cmp-cmdline'},
+	{'saadparwaiz1/cmp_luasnip'},
+
+	-- Snippets
+	{
+		"L3MON4D3/LuaSnip",
+		-- follow latest release.
+		version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+		-- install jsregexp (optional!).
+		-- build = "make install_jsregexp"
+		dependencies = { "rafamadriz/friendly-snippets" },
+	},
+	
+
+	-- Syntax highlighting
+	{
+		'nvim-treesitter/nvim-treesitter',
+		build = ':TSUpdate'
+	},
+
+	{
+		"folke/trouble.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			icons = false,
+			fold_open = "v", -- icon used for open folds
+			fold_closed = ">", -- icon used for closed folds
+			indent_lines = false, -- add an indent guide below the fold icons
+			signs = {
+				-- icons / text used for a diagnostic
+				error = "error",
+				warning = "warn",
+				hint = "hint",
+				information = "info"
+			},
+			use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
+		},
+	},
+
+	-- File, text finder, and undo tree
+	{
+		"nvim-telescope/telescope.nvim", version = '0.1.5',
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"debugloop/telescope-undo.nvim",
+		},
+		config = function()
+			require("telescope").setup({
+				-- the rest of your telescope config goes here
+				extensions = {
+					undo = {
+						-- telescope-undo.nvim config, see below
+					},
+					-- other extensions:
+					-- file_browser = { ... }
+				},
+			})
+			require("telescope").load_extension("undo")
+			vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
+		end,
+	},
+
+	-- Git Integration
+	{'tpope/vim-fugitive'},
+
+	-- Colorscheme
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+
+})
 
 ----------------------------------------------------------------------------
--- File Explorer, finder and text search
+-- Colorscheme
+----------------------------------------------------------------------------
+
+vim.cmd.colorscheme "catppuccin"
+
+----------------------------------------------------------------------------
+-- File finder
 ----------------------------------------------------------------------------
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
@@ -45,23 +120,106 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
-vim.api.nvim_set_keymap(
-  "n",
-  "<space>fb",
-  ":Telescope file_browser<CR>",
-  { noremap = true }
-)
-
--- open file_browser with the path of the current buffer
-vim.api.nvim_set_keymap(
-  "n",
-  "<space>fb",
-  ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
-  { noremap = true }
-)
+----------------------------------------------------------------------------
+-- Fugitive
+----------------------------------------------------------------------------
 
 ----------------------------------------------------------------------------
--- Elixir Setup
+-- LSP support
+----------------------------------------------------------------------------
+local lsp_zero = require('lsp-zero')
+
+lsp_zero.on_attach(function(client, bufnr)
+	local opts = {buffer = bufnr, remap = false}
+
+	vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+	vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+	vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+	vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+	vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+	vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+	vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+	vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
+	vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
+	vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+end)
+
+-- to learn how to use mason.nvim with lsp-zero
+-- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
+require('mason').setup({})
+require('mason-lspconfig').setup({
+	ensure_installed = {'tsserver', 'rust_analyzer'},
+	handlers = {
+		lsp_zero.default_setup,
+		lua_ls = function()
+			local lua_opts = lsp_zero.nvim_lua_ls()
+			require('lspconfig').lua_ls.setup(lua_opts)
+		end,
+	}
+})
+
+----------------------------------------------------------------------------
+-- Autocomplete
+----------------------------------------------------------------------------
+
+local cmp = require('cmp')
+local cmp_select = {behavior = cmp.SelectBehavior.Select}
+
+-- this is the function that loads the extra snippets to luasnip
+-- from rafamadriz/friendly-snippets
+require('luasnip.loaders.from_vscode').lazy_load()
+require('luasnip.loaders.from_vscode').lazy_load({
+	paths = { vim.fn.stdpath("config") .. "/my-cool-snippets" },
+})
+
+cmp.setup({
+	sources = {
+		{name = 'path'},
+		{name = 'nvim_lsp'},
+		{name = 'luasnip', keyword_length = 2},
+		{name = 'nvim_lua'},
+		{name = 'buffer', keyword_length = 3},
+	},
+	formatting = lsp_zero.cmp_format(),
+	mapping = cmp.mapping.preset.insert({
+		['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+		['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+		["<C-Space>"] = cmp.mapping.complete(),
+		['<C-e>'] = cmp.mapping.abort(),
+		['<C-y>'] = cmp.mapping.confirm({ select = true }),
+		['<Tab>'] = cmp.mapping.confirm({ select = true }),
+	}),
+})
+
+----------------------------------------------------------------------------
+-- Syntax highlighting
+----------------------------------------------------------------------------
+
+require'nvim-treesitter.configs'.setup {
+	ensure_installed = {"vimdoc", "javascript", "typescript", "c", "lua", "python", "elixir", "heex", "eex"},
+	-- ensure_installed = "all", -- install parsers for all supported languages
+	-- Install parsers synchronously (only applied to `ensure_installed`)
+	sync_install = false,
+
+	-- Automatically install missing parsers when entering buffer
+	-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+	auto_install = true,
+
+	highlight = {
+		-- `false` will disable the whole extension
+		enable = true,
+
+		-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+		-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+		-- Using this option may slow down your editor, and you may see some duplicate highlights.
+		-- Instead of true it can also be a list of languages
+		additional_vim_regex_highlighting = false,
+	},
+}
+
+
+----------------------------------------------------------------------------
+-- Elixir LS Setup (Archive since using a LS manager)
 ----------------------------------------------------------------------------
 
 -- setting up the elixir language server
@@ -82,161 +240,43 @@ vim.api.nvim_set_keymap(
 -- MIX_ENV=prod mix compile
 -- MIX_ENV=prod mix elixir_ls.release -o release
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-require('lspconfig').elixirls.setup {
-  cmd = { os.getenv("HOME") .. "/elixir-ls/release/language_server.sh" },
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-local cmp = require'cmp'
-
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      -- setting up snippet engine
-      -- this is for vsnip, if you're using other
-      -- snippet engine, please refer to the `nvim-cmp` guide
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
-  mapping = {
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-  },
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' }, -- For vsnip users.
-    { name = 'buffer' }
-  })
-})
-
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"elixir", "heex", "eex"}, -- only install parsers for elixir and heex
-  -- ensure_installed = "all", -- install parsers for all supported languages
-  sync_install = false,
-  ignore_install = { },
-  highlight = {
-    enable = true,
-    disable = { },
-  },
-}
-
--- ### helper functions ###
--- ### Tab to cycle through `vsnip` suggestions
--- local has_words_before = function()
---   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
---   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
--- end
--- 
--- local feedkey = function(key, mode)
---   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
--- end
--- 
--- cmp.setup({
---   -- other settings ...
---   mapping = {
---     -- other mappings ...
---     ["<Tab>"] = cmp.mapping(function(fallback)
---       if cmp.visible() then
--- 	cmp.select_next_item()
---       elseif vim.fn["vsnip#available"](1) == 1 then
--- 	feedkey("<Plug>(vsnip-expand-or-jump)", "")
---       elseif has_words_before() then
--- 	cmp.complete()
---       else
--- 	fallback()
---       end
---     end, { "i", "s" }),
---     ["<S-Tab>"] = cmp.mapping(function()
---       if cmp.visible() then
--- 	cmp.select_prev_item()
---       elseif vim.fn["vsnip#jumpable"](-1) == 1 then
--- 	feedkey("<Plug>(vsnip-jump-prev)", "")
---       end
---     end, { "i", "s" })
---   }
--- })
-
-----------------------------------------------------------------------------
--- Packer plugin manager
-----------------------------------------------------------------------------
-
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
-end
-
-local packer_bootstrap = ensure_packer()
-
-return require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
-  -- My plugins here
-  -- use 'foo1/bar1.nvim'
-  -- use 'foo2/bar2.nvim'
-
-  -- lsp config for elixir-ls support
-  use {'neovim/nvim-lspconfig'}
-
-  -- cmp framework for auto-completion support
-  use {'hrsh7th/nvim-cmp'}
-
-  -- install different completion source
-  use {'hrsh7th/cmp-nvim-lsp'}
-  use {'hrsh7th/cmp-buffer'}
-  use {'hrsh7th/cmp-path'}
-  use {'hrsh7th/cmp-cmdline'}
-
-  -- you need a snippet engine for snippet support
-  -- here I'm using vsnip which can load snippets in vscode format
-  use {'hrsh7th/vim-vsnip'}
-  use {'hrsh7th/cmp-vsnip'}
-
-  -- treesitter for syntax highlighting and more
-  use {
-      'nvim-treesitter/nvim-treesitter',
-      run = ':TSUpdate'
-  }
-
-  -- File and text finder
-  use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.5',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
-
-  use {
-    "nvim-telescope/telescope-file-browser.nvim",
-    requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
-  }
-
-  use {
-  "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    requires = { 
-      "nvim-lua/plenary.nvim",
-      -- "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
-      "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-    }
-  }
-
-  -- Color Theme
-  use { "catppuccin/nvim", as = "catppuccin" }
-  -- use {
-  --   "folke/tokyonight.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   opts = {},
-  -- }
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
+-- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- require('lspconfig').elixirls.setup {
+	--   cmd = { os.getenv("HOME") .. "/elixir-ls/release/language_server.sh" },
+	--   on_attach = on_attach,
+	--   capabilities = capabilities
+	-- }
+	-- 
+	-- local cmp = require'cmp'
+	-- 
+	-- cmp.setup({
+		--   snippet = {
+			--     expand = function(args)
+				--       -- setting up snippet engine
+				--       -- this is for vsnip, if you're using other
+				--       -- snippet engine, please refer to the `nvim-cmp` guide
+				--       vim.fn["vsnip#anonymous"](args.body)
+				--     end,
+				--   },
+				--   mapping = {
+					--     ['<CR>'] = cmp.mapping.confirm({ select = true }),
+					--   },
+					--   sources = cmp.config.sources({
+						--     { name = 'nvim_lsp' },
+						--     { name = 'vsnip' }, -- For vsnip users.
+						--     { name = 'buffer' }
+						--   })
+						-- })
+						-- 
+						-- require'nvim-treesitter.configs'.setup {
+							--   ensure_installed = {"elixir", "heex", "eex"}, -- only install parsers for elixir and heex
+							--   -- ensure_installed = "all", -- install parsers for all supported languages
+							--   sync_install = false,
+							--   ignore_install = { },
+							--   highlight = {
+								--     enable = true,
+								--     disable = { },
+								--   },
+								-- }
+								-- 
+								-- }
