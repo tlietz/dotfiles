@@ -22,21 +22,22 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
+
 require("lazy").setup({
 	-- LSP Support
-	{'williamboman/mason.nvim'},
-	{'williamboman/mason-lspconfig.nvim'},
-	{'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
-	{'neovim/nvim-lspconfig'},
+	{ 'williamboman/mason.nvim' },
+	{ 'williamboman/mason-lspconfig.nvim' },
+	{ 'VonHeikemen/lsp-zero.nvim',        branch = 'v3.x' },
+	{ 'neovim/nvim-lspconfig' },
 
 	-- Autocomplete
-	{'hrsh7th/cmp-nvim-lsp'},
-	{'hrsh7th/cmp-nvim-lua'},
-	{'hrsh7th/nvim-cmp'},
-	{'hrsh7th/cmp-buffer'},
-	{'hrsh7th/cmp-path'},
-	{'hrsh7th/cmp-cmdline'},
-	{'saadparwaiz1/cmp_luasnip'},
+	{ 'hrsh7th/cmp-nvim-lsp' },
+	{ 'hrsh7th/cmp-nvim-lua' },
+	{ 'hrsh7th/nvim-cmp' },
+	{ 'hrsh7th/cmp-buffer' },
+	{ 'hrsh7th/cmp-path' },
+	{ 'hrsh7th/cmp-cmdline' },
+	{ 'saadparwaiz1/cmp_luasnip' },
 
 	-- Snippets
 	{
@@ -75,7 +76,8 @@ require("lazy").setup({
 
 	-- File, text finder, and undo tree
 	{
-		"nvim-telescope/telescope.nvim", version = '0.1.5',
+		"nvim-telescope/telescope.nvim",
+		version = '0.1.5',
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"debugloop/telescope-undo.nvim",
@@ -97,11 +99,23 @@ require("lazy").setup({
 	},
 
 	-- Git Integration
-	{'tpope/vim-fugitive'},
+	{ 'tpope/vim-fugitive' },
 
 	-- Colorscheme
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+	{ "catppuccin/nvim",   name = "catppuccin", priority = 1000 },
 
+	-- QOL
+	{
+		"nvim-tree/nvim-tree.lua",
+		version = "*",
+		lazy = false,
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = function()
+			require("nvim-tree").setup {}
+		end,
+	},
 })
 
 ----------------------------------------------------------------------------
@@ -121,8 +135,37 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
 ----------------------------------------------------------------------------
+-- Nvim Tree
+----------------------------------------------------------------------------
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
+
+-- OR setup with some options
+require("nvim-tree").setup({
+	sort = {
+		sorter = "case_sensitive",
+	},
+	view = {
+		width = 30,
+	},
+	renderer = {
+		group_empty = true,
+	},
+	filters = {
+		dotfiles = true,
+	},
+})
+
+vim.keymap.set('n', '<leader>e;', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+
+----------------------------------------------------------------------------
 -- Fugitive
 ----------------------------------------------------------------------------
+
 
 ----------------------------------------------------------------------------
 -- LSP support
@@ -130,7 +173,7 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 local lsp_zero = require('lsp-zero')
 
 lsp_zero.on_attach(function(client, bufnr)
-	local opts = {buffer = bufnr, remap = false}
+	local opts = { buffer = bufnr, remap = false }
 
 	vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
 	vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
@@ -142,13 +185,15 @@ lsp_zero.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
 	vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
 	vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+
+	lsp_zero.buffer_autoformat()
 end)
 
 -- to learn how to use mason.nvim with lsp-zero
 -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 require('mason').setup({})
 require('mason-lspconfig').setup({
-	ensure_installed = {'tsserver', 'rust_analyzer'},
+	ensure_installed = { 'tsserver', 'rust_analyzer', 'lua_ls', 'elixirls', 'pyright' },
 	handlers = {
 		lsp_zero.default_setup,
 		lua_ls = function()
@@ -162,8 +207,8 @@ require('mason-lspconfig').setup({
 -- Syntax highlighting
 ----------------------------------------------------------------------------
 
-require'nvim-treesitter.configs'.setup {
-	ensure_installed = {"vimdoc", "javascript", "typescript", "c", "lua", "python", "elixir", "heex", "eex"},
+require 'nvim-treesitter.configs'.setup {
+	ensure_installed = { "vimdoc", "javascript", "typescript", "c", "lua", "python", "elixir", "heex", "eex" },
 	-- ensure_installed = "all", -- install parsers for all supported languages
 	-- Install parsers synchronously (only applied to `ensure_installed`)
 	sync_install = false,
@@ -189,7 +234,7 @@ require'nvim-treesitter.configs'.setup {
 ----------------------------------------------------------------------------
 
 local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
 -- this is the function that loads the extra snippets to luasnip
 -- from rafamadriz/friendly-snippets
@@ -217,11 +262,11 @@ ls.add_snippets("elixir", {
 
 cmp.setup({
 	sources = {
-		{name = 'path'},
-		{name = 'nvim_lsp'},
-		{name = 'luasnip', keyword_length = 1},
-		{name = 'nvim_lua'},
-		{name = 'buffer', keyword_length = 3},
+		{ name = 'path' },
+		{ name = 'nvim_lsp' },
+		{ name = 'luasnip', keyword_length = 1 },
+		{ name = 'nvim_lua' },
+		{ name = 'buffer',  keyword_length = 3 },
 	},
 	formatting = lsp_zero.cmp_format(),
 	mapping = cmp.mapping.preset.insert({
@@ -253,7 +298,7 @@ cmp.setup({
 --
 -- Then follow the instructions here:
 -- https://github.com/elixir-lsp/elixir-ls#building-and-running
--- 
+--
 -- At the time of creating this config, these were the commands run.
 -- Note that `-o release` matches `elixir-ls/release`:
 -- mix deps.get
@@ -262,41 +307,41 @@ cmp.setup({
 
 -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- require('lspconfig').elixirls.setup {
-	--   cmd = { os.getenv("HOME") .. "/elixir-ls/release/language_server.sh" },
-	--   on_attach = on_attach,
-	--   capabilities = capabilities
-	-- }
-	-- 
-	-- local cmp = require'cmp'
-	-- 
-	-- cmp.setup({
-		--   snippet = {
-			--     expand = function(args)
-				--       -- setting up snippet engine
-				--       -- this is for vsnip, if you're using other
-				--       -- snippet engine, please refer to the `nvim-cmp` guide
-				--       vim.fn["vsnip#anonymous"](args.body)
-				--     end,
-				--   },
-				--   mapping = {
-					--     ['<CR>'] = cmp.mapping.confirm({ select = true }),
-					--   },
-					--   sources = cmp.config.sources({
-						--     { name = 'nvim_lsp' },
-						--     { name = 'vsnip' }, -- For vsnip users.
-						--     { name = 'buffer' }
-						--   })
-						-- })
-						-- 
-						-- require'nvim-treesitter.configs'.setup {
-							--   ensure_installed = {"elixir", "heex", "eex"}, -- only install parsers for elixir and heex
-							--   -- ensure_installed = "all", -- install parsers for all supported languages
-							--   sync_install = false,
-							--   ignore_install = { },
-							--   highlight = {
-								--     enable = true,
-								--     disable = { },
-								--   },
-								-- }
-								-- 
-								-- }
+--   cmd = { os.getenv("HOME") .. "/elixir-ls/release/language_server.sh" },
+--   on_attach = on_attach,
+--   capabilities = capabilities
+-- }
+--
+-- local cmp = require'cmp'
+--
+-- cmp.setup({
+--   snippet = {
+--     expand = function(args)
+--       -- setting up snippet engine
+--       -- this is for vsnip, if you're using other
+--       -- snippet engine, please refer to the `nvim-cmp` guide
+--       vim.fn["vsnip#anonymous"](args.body)
+--     end,
+--   },
+--   mapping = {
+--     ['<CR>'] = cmp.mapping.confirm({ select = true }),
+--   },
+--   sources = cmp.config.sources({
+--     { name = 'nvim_lsp' },
+--     { name = 'vsnip' }, -- For vsnip users.
+--     { name = 'buffer' }
+--   })
+-- })
+--
+-- require'nvim-treesitter.configs'.setup {
+--   ensure_installed = {"elixir", "heex", "eex"}, -- only install parsers for elixir and heex
+--   -- ensure_installed = "all", -- install parsers for all supported languages
+--   sync_install = false,
+--   ignore_install = { },
+--   highlight = {
+--     enable = true,
+--     disable = { },
+--   },
+-- }
+--
+-- }
