@@ -5,6 +5,8 @@
 vim.g.mapleader = " "
 vim.wo.relativenumber = true
 vim.wo.number = true
+vim.o.splitbelow = true
+vim.o.splitright = true
 
 ----------------------------------------------------------------------------
 -- Plugin manager
@@ -121,11 +123,10 @@ require("lazy").setup({
 ----------------------------------------------------------------------------
 -- Builtin Terminal Emulator
 ----------------------------------------------------------------------------
-
-
 -- Open terminal in various splits
 vim.keymap.set('n', '<leader>ts', ':sp|term<CR>')
 vim.keymap.set('n', '<leader>tt', ':vsp|term<CR>')
+vim.keymap.set('n', '<leader>tn', ':tabnew|term<CR>')
 
 -- Map <Esc> to exit terminal-mode
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
