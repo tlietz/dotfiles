@@ -5,8 +5,6 @@
 vim.g.mapleader = " "
 vim.wo.relativenumber = true
 vim.wo.number = true
-vim.o.splitbelow = true
-vim.o.splitright = true
 
 ----------------------------------------------------------------------------
 -- Plugin manager
