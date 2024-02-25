@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------
 -- Mappings and general configs
-----------------------------------------------------------------------------
+---------------------------------------------------------------------------
 
 vim.g.mapleader = " "
 vim.wo.relativenumber = true
@@ -117,6 +117,24 @@ require("lazy").setup({
 		end,
 	},
 })
+
+----------------------------------------------------------------------------
+-- Builtin Terminal Emulator
+----------------------------------------------------------------------------
+
+
+-- Open terminal in various splits
+vim.keymap.set('n', '<leader>ts', ':sp|term<CR>')
+vim.keymap.set('n', '<leader>tt', ':vsp|term<CR>')
+
+-- Map <Esc> to exit terminal-mode
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+
+-- simulates i CTRL-R (pasting a buffer) in terminal-mode
+local function charinput()
+	return '<C-\\><C-N>"' .. vim.fn.nr2char(vim.fn.getchar()) .. 'pi'
+end
+vim.keymap.set('t', '<C-R>', charinput, { expr = true })
 
 ----------------------------------------------------------------------------
 -- Colorscheme
