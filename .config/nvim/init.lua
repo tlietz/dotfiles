@@ -210,7 +210,7 @@ end)
 -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 require('mason').setup({})
 require('mason-lspconfig').setup({
-	ensure_installed = { 'tsserver', 'rust_analyzer', 'lua_ls', 'elixirls', 'pyright' },
+	ensure_installed = { 'tsserver', 'rust_analyzer', 'lua_ls', 'elixirls', 'pyright', 'html', 'unocss', 'tailwindcss' },
 	handlers = {
 		lsp_zero.default_setup,
 		lua_ls = function()
@@ -225,7 +225,7 @@ require('mason-lspconfig').setup({
 ----------------------------------------------------------------------------
 
 require 'nvim-treesitter.configs'.setup {
-	ensure_installed = { "vimdoc", "javascript", "typescript", "c", "lua", "python", "elixir", "heex", "eex" },
+	ensure_installed = { "vimdoc", "javascript", "typescript", "c", "lua", "python", "elixir", "heex", "eex", "html", "css" },
 	-- ensure_installed = "all", -- install parsers for all supported languages
 	-- Install parsers synchronously (only applied to `ensure_installed`)
 	sync_install = false,
