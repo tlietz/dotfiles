@@ -27,7 +27,10 @@ require("lazy").setup({
 	-- LSP Support
 	{ 'williamboman/mason.nvim' },
 	{ 'williamboman/mason-lspconfig.nvim' },
-	{ 'VonHeikemen/lsp-zero.nvim',        branch = 'v3.x' },
+	{
+		'VonHeikemen/lsp-zero.nvim',
+		branch = 'v3.x'
+	},
 	{ 'neovim/nvim-lspconfig' },
 
 	-- Autocomplete
@@ -102,9 +105,14 @@ require("lazy").setup({
 	{ 'tpope/vim-fugitive' },
 
 	-- Colorscheme
-	{ "catppuccin/nvim",   name = "catppuccin", priority = 1000 },
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000
+	},
 
 	-- QOL
+	{ "windwp/nvim-ts-autotag" },
 	{
 		"nvim-tree/nvim-tree.lua",
 		version = "*",
@@ -202,7 +210,6 @@ lsp_zero.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
 	vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
 	vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-
 	lsp_zero.buffer_autoformat()
 end)
 
@@ -233,6 +240,11 @@ require 'nvim-treesitter.configs'.setup {
 	-- Automatically install missing parsers when entering buffer
 	-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
 	auto_install = true,
+
+	-- Automatically close and rename html
+	autotag = {
+		enable = true,
+	},
 
 	highlight = {
 		-- `false` will disable the whole extension
