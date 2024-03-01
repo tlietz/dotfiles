@@ -120,6 +120,14 @@ require("lazy").setup({
         priority = 1000
     },
 
+    -- Markdown viewer
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        build = function() vim.fn["mkdp#util#install"]() end,
+    },
+
     -- QOL
     { "windwp/nvim-ts-autotag" },
     {
