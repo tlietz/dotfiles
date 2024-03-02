@@ -114,9 +114,9 @@ require("lazy").setup({
     {
         "nvim-tree/nvim-tree.lua",
         version = "*",
-        lazy = true,
+        lazy = false,
         dependencies = {
-            "nvim-tree/nvim-web-devicons",
+            -- "nvim-tree/nvim-web-devicons",
         },
     },
     {
@@ -146,7 +146,17 @@ require("nvim-tree").setup({
         width = 50,
     },
     renderer = {
-        group_empty = true,
+        group_empty = false,
+        indent_markers = {
+            enable = true,
+        },
+        icons = {
+            show = {
+                file = false,
+                folder = false,
+                folder_arrow = false,
+            }
+        }
     },
     filters = {
         dotfiles = false,
