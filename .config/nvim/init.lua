@@ -67,25 +67,6 @@ require("lazy").setup({
         build = ':TSUpdate'
     },
 
-    {
-        "folke/trouble.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        opts = {
-            icons = false,
-            fold_open = "v",      -- icon used for open folds
-            fold_closed = ">",    -- icon used for closed folds
-            indent_lines = false, -- add an indent guide below the fold icons
-            signs = {
-                -- icons / text used for a diagnostic
-                error = "error",
-                warning = "warn",
-                hint = "hint",
-                information = "info"
-            },
-            use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
-        },
-    },
-
     -- File, text finder, and undo tree
     {
         "nvim-telescope/telescope.nvim",
@@ -137,11 +118,69 @@ require("lazy").setup({
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
-        config = function()
-            require("nvim-tree").setup {}
-        end,
+    },
+    {
+        "nvim-telescope/telescope-file-browser.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
     },
 })
+
+-----------------------------------------------------------------------------
+--- Nvim Tree
+-----------------------------------------------------------------------------
+--- disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+vim.opt.termguicolors = true
+
+local HEIGHT_RATIO = 0.8
+local WIDTH_RATIO = 0.75
+
+require("nvim-tree").setup({
+    sort = {
+        sorter = "case_sensitive",
+    },
+    actions = {
+        open_file = { quit_on_open = true },
+    },
+    view = {
+        relativenumber = true,
+        float = {
+            enable = true,
+            open_win_config = function()
+                local screen_w = vim.opt.columns:get()
+                local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+                local window_w = screen_w * WIDTH_RATIO
+                local window_h = screen_h * HEIGHT_RATIO
+                local window_w_int = math.floor(window_w)
+                local window_h_int = math.floor(window_h)
+                local center_x = (screen_w - window_w) / 2
+                local center_y = ((vim.opt.lines:get() - window_h) / 2)
+                    - vim.opt.cmdheight:get()
+                return {
+                    border = "rounded",
+                    relative = "editor",
+                    row = center_y,
+                    col = center_x,
+                    width = window_w_int,
+                    height = window_h_int,
+                }
+            end,
+        },
+        width = function()
+            return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
+        end,
+    },
+    renderer = {
+        group_empty = true,
+    },
+    filters = {
+        dotfiles = false,
+    },
+})
+
+vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>')
 
 ----------------------------------------------------------------------------
 -- Builtin Terminal Emulator
@@ -176,33 +215,12 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
-----------------------------------------------------------------------------
--- Nvim Tree
-----------------------------------------------------------------------------
--- disable netrw at the very start of your init.lua
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
--- optionally enable 24-bit colour
-vim.opt.termguicolors = true
-
--- OR setup with some options
-require("nvim-tree").setup({
-    sort = {
-        sorter = "case_sensitive",
-    },
-    view = {
-        width = 30,
-    },
-    renderer = {
-        group_empty = true,
-    },
-    filters = {
-        dotfiles = true,
-    },
-})
-
-vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+    "n",
+    "<leader>fe",
+    ":Telescope file_browser<CR>",
+    { noremap = true }
+)
 
 ----------------------------------------------------------------------------
 -- Fugitive
