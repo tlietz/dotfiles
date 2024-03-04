@@ -211,6 +211,7 @@ vim.api.nvim_set_keymap(
 ----------------------------------------------------------------------------
 -- Fugitive
 ----------------------------------------------------------------------------
+vim.keymap.set('n', '<leader>g', ":Git<CR>", { noremap = true })
 
 ----------------------------------------------------------------------------
 -- LSP support
@@ -237,7 +238,7 @@ end)
 -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 require('mason').setup({})
 require('mason-lspconfig').setup({
-    ensure_installed = { 'tsserver', 'rust_analyzer', 'lua_ls', 'elixirls', 'pyright', 'html', 'unocss', 'tailwindcss' },
+    ensure_installed = { 'tsserver', 'rust_analyzer', 'lua_ls', 'elixirls', 'pyright', 'html', 'cssls', 'tailwindcss' },
     handlers = {
         lsp_zero.default_setup,
         lua_ls = function()
@@ -252,7 +253,7 @@ require('mason-lspconfig').setup({
 ----------------------------------------------------------------------------
 
 require 'nvim-treesitter.configs'.setup {
-    ensure_installed = { "vimdoc", "javascript", "typescript", "c", "lua", "python", "elixir", "heex", "eex", "html", "css" },
+    ensure_installed = { "vimdoc", "javascript", "typescript", "c", "lua", "python", "elixir", "heex", "eex", "html", "css", "json", "make", "dockerfile", "yaml", "markdown" },
     -- ensure_installed = "all", -- install parsers for all supported languages
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -264,6 +265,14 @@ require 'nvim-treesitter.configs'.setup {
     -- Automatically close and rename html
     autotag = {
         enable = true,
+        filetypes = {
+            'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx', 'rescript',
+            'xml',
+            'php',
+            'markdown',
+            'astro', 'glimmer', 'handlebars', 'hbs',
+            'elixir', 'heex',
+        }
     },
 
     highlight = {
