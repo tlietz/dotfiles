@@ -66,6 +66,7 @@ require("lazy").setup({
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate'
     },
+    { 'nvim-treesitter/nvim-treesitter-context' },
 
     -- File, text finder, and undo tree
     {
@@ -364,6 +365,10 @@ require 'nvim-treesitter.configs'.setup {
         additional_vim_regex_highlighting = false,
     },
 }
+
+-- Set Treesitter context styles
+vim.api.nvim_exec([[ hi TreesitterContextLineNumber guifg=NONE guibg=Grey gui=NONE guisp=NONE ]], false)
+vim.api.nvim_exec([[ hi TreesitterContext guifg=NONE guibg=#4e4f4f gui=NONE guisp=NONE ]], false)
 
 ----------------------------------------------------------------------------
 -- Autocomplete
