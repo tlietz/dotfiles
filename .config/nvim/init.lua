@@ -297,6 +297,35 @@ require('mason-lspconfig').setup({
     }
 })
 
+local lspconfig = require("lspconfig")
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+lspconfig.tailwindcss.setup({
+    capabilities = capabilities,
+    filetypes = { "html", "elixir", "eelixir", "heex" },
+    init_options = {
+        userLanguages = {
+            elixir = "html-eex",
+            eelixir = "html-eex",
+            heex = "html-eex",
+        },
+    },
+    settings = {
+        tailwindCSS = {
+            experimental = {
+                classRegex = {
+                    'class[:]\\s*"([^"]*)"',
+                },
+            },
+        },
+    },
+})
+
+lspconfig.emmet_ls.setup({
+    capabilities = capabilities,
+    filetypes = { "html", "css", "elixir", "eelixir", "heex" },
+})
+
 ----------------------------------------------------------------------------
 -- Syntax highlighting
 ----------------------------------------------------------------------------
@@ -351,6 +380,17 @@ require('luasnip.loaders.from_vscode').lazy_load()
 local s = ls.snippet
 local t = ls.text_node
 
+ls.setup({
+    load_ft_func =
+        require("luasnip.extras.filetype_functions").extend_load_ft({
+            markdown = { "lua", "json" },
+            html = { "javascript" }
+        })
+})
+
+ls.filetype_extend("heex", { "html" })
+ls.filetype_extend("elixir", { "html" })
+
 ls.add_snippets("elixir", {
     -- IO.inspect() binding() with easy to search for label
     s("iib", {
@@ -366,6 +406,7 @@ ls.add_snippets("elixir", {
         t('|> dbg(limit: :infinity)'),
     }),
 })
+
 
 cmp.setup({
     sources = {
