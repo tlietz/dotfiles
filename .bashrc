@@ -65,7 +65,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='\[\033[00;33m\]\w\[\033[01;35m\]$(__git_ps1 " (%s)") \[\033[01;32m\]\$\[\033[0m\] '
+    PS1='\[\033[01;34m\]\w\[\033[01;35m\]$(__git_ps1 " (%s)") \[\033[01;32m\]\$\[\033[0m\] '
 else
     PS1='\w$(__git_ps1 " (%s)") \$ '
 fi
