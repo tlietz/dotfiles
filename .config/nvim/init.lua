@@ -266,6 +266,11 @@ vim.keymap.set('n', '<leader>g', ":Git<CR>", { noremap = true })
 ----------------------------------------------------------------------------
 -- LSP support
 ----------------------------------------------------------------------------
+local function in_qmk_keyboard_dir()
+    local current_path = vim.api.nvim_buf_get_name(0)
+    return string.find(current_path, "qmk-keyboards", 1, true) ~= nil
+end
+
 local lsp_zero = require('lsp-zero')
 
 lsp_zero.on_attach(function(client, bufnr)
@@ -282,13 +287,22 @@ lsp_zero.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
     lsp_zero.buffer_autoformat()
+
+    if in_qmk_keyboard_dir() then
+        vim.diagnostic.disable()
+
+        -- show syntax highlighting even with undefined macros
+        for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
+            vim.api.nvim_set_hl(0, group, {})
+        end
+    end
 end)
 
 -- to learn how to use mason.nvim with lsp-zero
 -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 require('mason').setup({})
 require('mason-lspconfig').setup({
-    ensure_installed = { 'tsserver', 'rust_analyzer', 'lua_ls', 'elixirls', 'pyright', 'html', 'cssls', 'tailwindcss' },
+    ensure_installed = { 'tsserver', 'rust_analyzer', 'lua_ls', 'elp', 'elixirls', 'pyright', 'html', 'cssls', 'emmet_ls', 'tailwindcss', 'clangd' },
     handlers = {
         lsp_zero.default_setup,
         lua_ls = function()
@@ -332,7 +346,7 @@ lspconfig.emmet_ls.setup({
 ----------------------------------------------------------------------------
 
 require 'nvim-treesitter.configs'.setup {
-    ensure_installed = { "vimdoc", "javascript", "typescript", "c", "lua", "python", "elixir", "heex", "eex", "html", "css", "json", "make", "dockerfile", "yaml", "markdown" },
+    ensure_installed = { "vimdoc", "javascript", "typescript", "c", "lua", "python", "erlang", "elixir", "heex", "eex", "html", "css", "json", "make", "dockerfile", "yaml", "markdown" },
     -- ensure_installed = "all", -- install parsers for all supported languages
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
