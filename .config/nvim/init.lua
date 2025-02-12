@@ -290,7 +290,7 @@ lsp_zero.on_attach(function(client, bufnr)
     lsp_zero.buffer_autoformat()
 
     if in_qmk_keyboard_dir() then
-        vim.diagnostic.disable()
+        vim.diagnostic.enable(false)
 
         -- show syntax highlighting even with undefined macros
         for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
@@ -303,7 +303,7 @@ end)
 -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 require('mason').setup({})
 require('mason-lspconfig').setup({
-    ensure_installed = { 'ts_ls', 'rust_analyzer', 'lua_ls', 'elp', 'elixirls', 'pyright', 'html', 'cssls', 'emmet_ls', 'tailwindcss', 'clangd' },
+    ensure_installed = { 'gopls', 'ts_ls', 'rust_analyzer', 'lua_ls', 'elp', 'elixirls', 'pyright', 'html', 'cssls', 'emmet_ls', 'tailwindcss', 'clangd' },
     handlers = {
         lsp_zero.default_setup,
         lua_ls = function()
