@@ -15,6 +15,12 @@ vim.o.shiftwidth = 4   -- Number of spaces inserted when indenting
 vim.o.list = true
 vim.o.listchars = "tab:→ "
 
+vim.filetype.add({
+    pattern = {
+        [".*%.go%.tpl"] = "go",
+    },
+})
+
 ----------------------------------------------------------------------------
 -- Plugin manager
 ----------------------------------------------------------------------------
@@ -299,6 +305,7 @@ lsp_zero.on_attach(function(client, bufnr)
     end
 end)
 
+local lspconfig = require("lspconfig")
 -- to learn how to use mason.nvim with lsp-zero
 -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 require('mason').setup({})
@@ -310,10 +317,9 @@ require('mason-lspconfig').setup({
             local lua_opts = lsp_zero.nvim_lua_ls()
             require('lspconfig').lua_ls.setup(lua_opts)
         end,
-    }
+    },
 })
 
-local lspconfig = require("lspconfig")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 lspconfig.tailwindcss.setup({
