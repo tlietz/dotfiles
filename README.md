@@ -5,11 +5,7 @@
 ```terminal
 mv .tmux.conf .tmux.conf.old
 
-rm .tmux.conf
-
 mv .bashrc .bashrc.old
-
-rm .bashrc
 
 mkdir ~/.dotfiles
 
