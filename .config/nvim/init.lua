@@ -390,6 +390,8 @@ require 'nvim-treesitter.configs'.setup {
 -- Set Treesitter context styles
 vim.api.nvim_exec([[ hi TreesitterContextLineNumber guifg=NONE guibg=Grey gui=NONE guisp=NONE ]], false)
 vim.api.nvim_exec([[ hi TreesitterContext guifg=NONE guibg=#4e4f4f gui=NONE guisp=NONE ]], false)
+vim.api.nvim_set_hl(0, '@lsp.type.comment.c', {})
+vim.api.nvim_set_hl(0, '@lsp.type.comment.cpp', {})
 
 ----------------------------------------------------------------------------
 -- Autocomplete
